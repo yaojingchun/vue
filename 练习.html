@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <do-box></do-box>
+</div>
+<script type="text/x-template" id="doBox-template">
+    <div>
+        <do-input @toFather="recEvent"></do-input>
+        <do-list :myList="list"></do-list>
+    </div>
+</script>
+<script type="text/x-template" id="doInput-template">
+    <div>
+        <h1>待做事项列表</h1>
+        <input type="text" placeholder="健身" v-model="txt"/>
+        <button @click="handleClick">Add</button>
+    </div>
+</script>
+<script type="text/x-template" id="doList-template">
+    <ul>
+        <do-item v-for="(value,index) in myList" :content="value"></do-item>
+
+    </ul>
+</script>
+<script type="text/x-template" id="doItem-template">
+        <li >
+            <button @click="deleteList">delete</button>
+            <span :index="num">{{num+content}}</span>
+        </li>
+</script>
+<script>
+    //全局组件要在new Vue之前先创建好
+    Vue.component('do-box',{
+        template:'#doBox-template',
+        data: function () {
+            return {
+                list:['请客吃饭','健身']
+            }
+        },
+        methods:{
+            recEvent: function (result) {
+                console.log(result);
+                this.list.push(result);
+            }
+        }
+    });
+    Vue.component('do-input',{
+        template:'#doInput-template',
+        data: function () {
+            return {
+                txt:''
+            }
+        },
+        methods:{
+            handleClick: function () {
+               // console.log(this.txt);
+                this.$emit('toFather',this.txt);
+            }
+        }
+    });
+    Vue.component('do-list',{
+        template:'#doList-template',
+        props:['myList']
+    });
+    Vue.component('do-item',{
+        template:'#doItem-template',
+        props:['content','num'],
+
+        methods:{
+            deleteList: function () {
+                var index=document.getElementsByTagName("span");
+                console.log(index);
+                this.$parent.list.splice(this.index,1);
+            }
+        }
+    });
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+</body>
+</html>

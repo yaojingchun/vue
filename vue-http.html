@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <!--vue-resource封装ajax请求-->
+    <script src="js/vue-resource.js"></script>
+</head>
+<body>
+<div id="example">
+    <button @click="handleClick">click me</button>
+    <ul>
+        <li v-for="item in list">{{item.name+item.age}}</li>
+    </ul>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive',
+            list:[]
+        },
+        methods:{
+            handleClick: function () {
+                console.log("btn is clicked");
+                this.$http.
+                        get('data/test.json').
+                        then(function (response) {
+                            console.log(response);
+                            this.list=response.data;
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

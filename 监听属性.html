@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+
+    <input type="text" v-model="kw"/>
+</div>
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive',
+            kw:''
+        },
+        watch:{
+            kw:function(newValue,oldValue){
+                console.log(newValue);
+                console.log(oldValue);
+            }
+        }
+    })
+</script>
+</body>
+</html>

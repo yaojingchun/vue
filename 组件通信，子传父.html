@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <father></father>
+</div>
+<script type="text/x-template" id="father-template">
+    <div>
+        <h1>this is father component</h1>
+        <span>{{"接收到的数据"+msgFromSon}}</span>
+        <hr/>
+        <son @toFather="recEvent"></son>
+    </div>
+</script>
+<script type="text/x-template" id="son-template">
+    <div>
+        <h1>this is son component</h1>
+        <input type="text" v-model="kw">
+        <button @click="handleClick">send to father</button>
+    </div>
+</script>
+<script>
+    Vue.component('father',{
+        template:'#father-template',
+        data:function(){
+            return {
+                msgFromSon:''
+            }
+        },
+        methods:{
+            recEvent: function (result) {
+                console.log(result);
+                this.msgFromSon=result;
+            }
+        }
+    });
+    Vue.component('son',{
+        template:'#son-template',
+        data: function () {
+            return {
+                kw:''
+            }
+        },
+        methods:{
+            handleClick:function(){
+                //通过事件向父组件传递数据
+                this.$emit('toFather',this.kw)
+            }
+        }
+    });
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+</body>
+</html>
+<!--步骤：-->
+<!--要想通过事件传值，要约定事件的名称：toFather-->
+<!--1、在调用子组件时，绑定自定义的事件-->
+<!--<son @toFather=""></son>-->
+<!--2、在子组件中触发自定义事件，并传值-->
+<!--this.$emit('事件名称',传递的数据)-->
+<!--this.$emit('toFather',this.kw)-->

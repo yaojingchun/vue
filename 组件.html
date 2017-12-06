@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    {{msg}}
+    <my-component></my-component>
+    <my-component1></my-component1>
+</div>
+<script>
+    //全局组件
+    Vue.component('my-component',{
+        template:'<h1>Hello Component</h1>'
+    });
+    //局部组件
+    var child={
+        template:'<span>Hello Child</span>'
+    }
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        },
+        components:{
+            'my-component1':child
+        }
+    })
+</script>
+</body>
+</html>

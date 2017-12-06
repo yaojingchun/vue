@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    {{msg}}
+    <father></father>
+</div>
+
+<script type="text/x-template" id="father-template">
+    <div><h1>this is father</h1>
+        <input type="text" v-model="kw">
+        <button @click="handleClick">click me</button>
+        <hr/>
+    <son :name="kw"></son></div>
+</script>
+<script type="text/x-template" id="son-template">
+    <h2>this is son,名字：“{{name}}”</h2>
+</script>
+<script>
+    //创建组件
+    //在组件中，data属性必须是一个带有返回值而且返回值是对象的方法
+    //如果在通过属性传值时，值是会变化，通过v-bind指令将变量绑定到属性
+    Vue.component('father',{
+        template:'#father-template',
+        data: function () {
+            return {
+                kw:''
+            }
+        },
+        methods:{
+            handleClick: function () {
+                console.log("ready to update data");
+            }
+        }
+    });
+    Vue.component('son',{
+        props:['name'],
+        template:'#son-template'
+    });
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+
+        }
+    })
+</script>
+</body>
+</html>
+<!--步骤：-->
+<!--1、在创建子组件指定属性，把要传递的值给属性<son name="zhangsan"></son>-->
+<!--2、在子组件内部声明props属性  props:['name']-->
+<!--props数组中的元素就是属性的名称，在组件创建完成之后，只要是通过该属性传值了，就可以直接在props的元素中拿到传递过来的数据-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+

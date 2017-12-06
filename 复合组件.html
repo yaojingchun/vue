@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    {{msg}}
+    <my-list></my-list>
+    <item></item>
+    <my-item></my-item>
+</div>
+<script>
+    Vue.component('my-list',{
+        template:'<div><h1>it is a list</h1><my-item></my-item></div>'
+    });
+    Vue.component('my-item',{
+        template:'<p>it is my item</p>'
+    });
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        },
+        components:{
+            'item':{
+                template:'<span>it is a item</span>'
+            }
+        }
+    })
+</script>
+</body>
+</html>

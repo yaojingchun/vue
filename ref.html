@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <father></father>
+</div>
+<script type="text/x-template" id="father-template">
+    <div>
+        <h1>this is father template</h1>
+        <button @click="checkSonStatus">查看儿子在干嘛</button>
+        <hr>
+        <son ref="mySon"></son>
+    </div>
+</script>
+<script type="text/x-template" id="son-template">
+    <div>
+        <h1>this is son template</h1>
+        <button @click="checkParentsStatus">查看老爹在干嘛</button>
+    </div>
+
+</script>
+<script>
+    Vue.component('father',{
+        template:'#father-template',
+        data: function () {
+            return {
+                name:'zhangsantadie'
+            }
+        },
+        methods:{
+            nowDoing: function () {
+                return ' is eating...'
+            },
+            checkSonStatus: function () {
+                //得到儿子名称
+                var sonName=this.$refs.mySon.name;
+                //得到儿子在干嘛
+                var sonStatus=this.$refs.mySon.nowDoing();
+                //返回
+                console.log(sonName+sonStatus);
+            }
+        }
+    });
+    Vue.component('son',{
+        template:'#son-template',
+        data: function () {
+            return {
+                name:'zhangsan'
+            }
+        },
+        methods:{
+            nowDoing: function () {
+                return ' is study...'
+            },
+            checkParentsStatus: function () {
+                console.log(this.$parent.name+this.$parent.nowDoing());
+            }
+        }
+    });
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+</body>
+</html>
+<!--父组件操作子组件：-->
+<!--this.$refs.名称.属性或者方法-->
+<!--子组件操作父组件：-->
+<!--this.$parent.属性或者方法-->

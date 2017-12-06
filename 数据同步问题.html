@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+<div v-html='shuju.name' class="product-tit">
+  ####
+</div></div>
+<script>
+    var view = new Vue({el: '#app',data:{'shuju':''}});
+    view.$set('shuju',{
+        'name' : 'zhusngq'
+    });
+
+    setTimeout(function() {
+        view.$set('shuju',{
+            'name' : 'zhusngqi'
+        });
+    }, 10000);
+    /**
+     * Created by
+     */
+    //  define(function (require) {
+    //    var $ = require('jquery');
+    //    var vue = require('vue');
+    //    var bxslider = require('bxslider');
+    //
+    //    // 构造函数
+    //    var PageModel = function (options) {
+    //      this.pageName = options.page;
+    //      this.module = options.module;
+    //    }
+    //
+    //    // 初始化页面js, 调用jquery的document.ready初始化页面DOM元素
+    //    PageModel.prototype.initialize = function() {
+    //      var pageModel = this;
+    //      $(document).ready(function(){
+    //        pageModel.onPageLoad();
+    //      });
+    //    }
+    //
+    //    // jquery 页面加载初始化
+    //    PageModel.prototype.onPageLoad = function () {
+    //      console.log("Page init");
+    //      this.control();
+    //      // 设置渲染
+    //      this.control();
+    //    }
+    //
+    //    PageModel.prototype.control = function () {
+    //      var _this = this;
+    //      $('.bxslider').bxSlider({auto : true, controls : false, touchEnabled : true });
+    //      // 创建一个vue对象;
+    //      this.view = new vue({el: '#app',data:{'data':''}});
+    //      this.view.$set('data',{
+    //        'name' : 'zhusngq'
+    //      });
+    //      setTimeout(function() {
+    //        _this.view.$set('data',{
+    //          'name' : 'zhusngqi'
+    //        });
+    //      }, 10000);
+    //    }
+    //
+    //    return PageModel;
+    //  });
+</script>
+</body>
+
+</html>

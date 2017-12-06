@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="example">
+        {{msg}}
+        <br>
+        <button v-if="hasMore">加载更多</button>
+        <p v-else="hasMore">没有更多数据可以加载了</p>
+        <span v-if="score>80">优秀</span>
+        <span v-else-if="score>60">及格</span>
+        <span v-else>不及格</span>
+        <h1 v-show="score>60">it is a test</h1>
+        <ul>
+            <li v-for="item in list">
+                {{item}}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="(value,index) in car">
+                <p>{{"属性为"+index+",值为"+value}}</p>
+            </li>
+        </ul>
+        <!--<img v-bind:src="'img/'+imgName" alt="">-->
+
+        <!--<img :src="'img/'+imgName" alt="">-->
+
+        <a v-bind:href="linkUrl">baidu</a>
+        <a :href="linkUrl">baidu</a>
+
+        <hr/>
+
+        <input type="text" v-model="kw">
+        <p>{{kw}}</p>
+
+        <input type="number" v-model.number="num1">
+        <input type="number" v-model.number="num2">
+        <p>{{num1+num2}}</p>
+
+        <button v-on:click="handleClick">click me</button>
+        <button @click="handleClick">click me</button>
+    </div>
+    <script>
+        new Vue({
+            el:'#example',
+            data:{
+                msg:'Hello Directive',
+                hasMore:true,
+                score:70,
+                list:[100,200,300],
+                car:{
+                    name:'WEY',
+                    price:20
+                },
+                imgName:'1.jpg',
+                linkUrl:'http://www.baidu.com',
+                kw:'zhangsan',
+                num1:10,
+                num2:20
+            },
+            methods:{
+                handleClick: function () {
+                    console.log('btn is clicked');
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

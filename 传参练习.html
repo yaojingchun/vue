@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="example">
+    <router-view></router-view>
+</div>
+<script type="text/x-template" id="main-template">
+    <div>
+        <ul>
+            <li v-for="(value,index) in list">
+                <button @click='jump(index)'>{{value}}</button>
+            </li>
+        </ul>
+    </div>
+</script>
+<script>
+    var myMain=Vue.component('main-component',{
+        data: function () {
+          return {
+              list:['红豆','绿豆','黑豆']
+          }
+        },
+        template:'#main-template',
+        methods:{
+            jump: function (id) {
+                this.$router.push('/detail/'+id)
+            }
+        }
+    });
+    var myDetail=Vue.component('detail-component',{
+        template:'<h1>订单详情：{{msg}}</h1>',
+        data: function () {
+            return {
+                msg:''
+            }
+        },
+        mounted: function () {
+            this.msg=this.$route.params.id;
+        }
+    });
+    var myRoutes=[
+        {
+            path:'/main',
+            component:myMain
+        },
+        {
+            path:'/detail/:id',
+            component:myDetail
+        },
+        {
+            path:'/',
+            component:myMain
+        },
+        {
+            path:'*',
+            component:myMain
+        }
+    ];
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        },
+        router:new VueRouter({
+            routes:myRoutes
+        })
+    })
+</script>
+</body>
+</html>

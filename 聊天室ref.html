@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    <father></father>
+</div>
+<script type="text/x-template" id="char-room">
+    <div>
+        <ul>
+            <li v-for="item in list">{{item}}</li>
+        </ul>
+        <hr>
+        <lucy ref="lucy"></lucy>
+        <mike ref="mike"></mike>
+    </div>
+</script>
+<script type="text/x-template" id="lucy-template">
+    <div>
+        <label>lucy： </label>
+        <input type="text" v-model="txt1" placeholder="plz input">
+        <button @click="sendLucy">发送</button>
+    </div>
+</script>
+<script type="text/x-template" id="mike-template">
+    <div>
+        <label>mike： </label>
+        <input type="text" v-model="txt2" placeholder="plz input">
+        <button @click="sendMike">发送</button>
+    </div>
+</script>
+<script>
+    Vue.component('father',{
+        template:'#char-room',
+        data: function () {
+          return {
+              list:[]
+          }
+        }
+    });
+    Vue.component('lucy',{
+        template:'#lucy-template',
+        data: function () {
+            return {
+                txt1:''
+            }
+        },
+        methods:{
+            sendLucy: function () {
+                this.$parent.list.push('Lucy：'+this.txt1);
+            }
+        }
+    });
+    Vue.component('mike',{
+        template:'#mike-template',
+        data: function () {
+            return {
+                txt2:''
+            }
+        },
+        methods:{
+            sendMike: function () {
+               this.$parent.list.push('Mike：'+this.txt2);
+            }
+        }
+    });
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello Directive'
+        }
+    })
+</script>
+</body>
+</html>
